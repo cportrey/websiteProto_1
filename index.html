@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -33,15 +34,26 @@
   </head>
 
   <body>
-      <script>
-var app = angular.module("myShoppingList", []); 
-app.controller("myCtrl", function($scope) {
-    $scope.products = ["Milk", "Bread", "Cheese"];
-    $scope.addItem = function () {
-        $scope.products.push($scope.addMe);
-    }    
-});
-</script>
+    <script>
+        var app = angular.module("myURLList", []);
+        app.controller("myCtrl", function($scope) {
+            $scope.products = [];
+            $scope.addItem = function () {
+                $scope.errortext = "";
+                if (!$scope.addMe) {return;}
+                if ($scope.products.indexOf($scope.addMe) == -1) {
+                    $scope.products.push($scope.addMe);
+                $('#protoform').children('input').val('')
+                } else {
+                    $scope.errortext = "URL already in your list.";
+                }
+            }
+            $scope.removeItem = function (x) {
+                $scope.errortext = "";
+                $scope.products.splice(x, 1);
+            }
+        });
+    </script>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -63,18 +75,27 @@ app.controller("myCtrl", function($scope) {
       </div>
     </nav>
 
-    <div class="container">
-
-        <div ng-app="myShoppingList" ng-controller="myCtrl">
-  <ul>
-    <li ng-repeat="x in products">{{x}}</li>
-  </ul>
-  <input ng-model="addMe">
-  <button ng-click="addItem()">Add</button>
-</div>
-
-<p>Write in the input field to add items.</p>
-    </div><!-- /.container -->
+    <div ng-app="myURLList" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin" style="min-width:400px; display:inline-block">
+      <header class="w3-container proto-light-grey w3-padding-16">
+        <h3>Playlist</h3>
+      </header>
+      <ul class="w3-ul">
+        <li ng-repeat="x in products" class="w3-padding-8">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">×</span></li>
+      </ul>
+      <div class="w3-container proto-light-grey w3-padding-16">
+        <div class="w3-row w3-margin-top">
+          <div class="w3-col s10">
+            <form id="protoform">
+                <input type="url" placeholder="http://www.YourURLHere.com" ng-model="addMe" class="w3-input w3-border w3-padding">
+            </form>
+          </div>
+          <div class="w3-col s2">
+            <button ng-click="addItem()" class="w3-btn w3-padding w3-green">Add</button>
+          </div>
+        </div>
+        <p class="w3-padding-left w3-text-red">{{errortext}}</p>
+      </div>
+    </div>
 
 
     <!-- Bootstrap core JavaScript

@@ -1,7 +1,17 @@
 body {
   padding-top: 50px;
 }
+h3 {
+color: white;
+}
 .starter-template {
   padding: 40px 15px;
   text-align: center;
 }
+.proto-light-grey {
+    color:#000 !important;background-color:#222 !important
+}
+.proto-light-white.text {
+    color:#000 !important;background-color:#ffffff !important
+}
+.proto-blue,{color:#fff !important;background-color:#0080ff !important}
