@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,18 +30,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
       <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="scripts.js"></script>
   </head>
 
-  <body>
-      <script>
-var app = angular.module("myShoppingList", []); 
-app.controller("myCtrl", function($scope) {
-    $scope.products = ["Milk", "Bread", "Cheese"];
-    $scope.addItem = function () {
-        $scope.products.push($scope.addMe);
-    }    
-});
-</script>
+  <body ng-controller="mainController">
+      
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -65,15 +58,20 @@ app.controller("myCtrl", function($scope) {
 
     <div class="container">
 
-        <div ng-app="myShoppingList" ng-controller="myCtrl">
-  <ul>
-    <li ng-repeat="x in products">{{x}}</li>
-  </ul>
-  <input ng-model="addMe">
-  <button ng-click="addItem()">Add</button>
-</div>
-
-<p>Write in the input field to add items.</p>
+       <div>
+            <ul>
+                <li ng-repeat="video in videoList">
+                    {{video}}
+                </li>
+           </ul>
+        </div>
+        
+        <div>
+            <input type="text" ng-model="input">
+            <button type="submit" ng-click="add()">Add</button>
+        </div>
+        
+        <div id="player"></div>
     </div><!-- /.container -->
 
 
