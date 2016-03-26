@@ -29,6 +29,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
+var prevIndex = 0;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -57,6 +58,17 @@ function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) {
         setTimeout(stopVideo, 6000);
         done = true;
+    }
+    
+    if(event.data ==-1 || event.data == 0){
+        var playlistIndex = player.getPlaylistIndex();
+        
+        if (player.getPlaylist().length != ytList.length){
+            player.loadPlaylist(ytList, prevIndex+1);
+        }
+        
+        prevIndex = playlistIndex;
+        
     }
 }
 
